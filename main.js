@@ -3,15 +3,22 @@
 
 $(document).ready(function () {
 
-	//al click sul bottone di ricerca invoco la funzione recall
-	$(".btn").click(recall);
+	//al click sul bottone di ricerca...
+	$(".btn").click(function() {
+		
+		//.val() mi restituisce ciò che è stato scritto nell'input
+		var value = $(".casella").val();
+
+		//invoco la funzione recall (che fa la chiamata ajax) e gli passo la var value che contiene l'input
+		recall(value);
+	})
 
 });
 
-function recall() {
+function recall(searchQuery) {
 	
 	$.ajax({
-		url: "https://api.themoviedb.org/3/search/movie?api_key=d74de08606fa199c2ea341c8be9368d2&query=ritorno+al+futuro",
+		url: "https://api.themoviedb.org/3/search/movie?api_key=d74de08606fa199c2ea341c8be9368d2&query=" + searchQuery,
 		method: "GET",
 
 		success: function (data) {
@@ -45,5 +52,3 @@ function recall() {
 		}
 	})
 }
-
-// https://api.themoviedb.org/3/search/movie?api_key=d74de08606fa199c2ea341c8be9368d2&query=
