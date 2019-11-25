@@ -21,20 +21,22 @@ function recall() {
 			for (var i = 0; i < data.results.length; i++) {
 
 				//salvo il valore della proprietà title
-				console.log(data.results[i].title);
+				console.log("questo è il titolo " + data.results[i].title);
 				var titoloFilm = data.results[i].title;
 
 				//salvo il valore della proprietà original_title
-				console.log(data.results[i].original_title);
+				console.log("questo è il titolo originale " + data.results[i].original_title);
 				var titoloOriginale = data.results[i].original_title;
 
 				//salvo il valore della proprietà lingua
-				console.log(data.results[i].original_language);
+				console.log("questa è la lingua " + data.results[i].original_language);
 				var lingua = data.results[i].original_language;
 
 				//salvo il valore della proprietà voto
-				console.log(data.results[i].vote_count);
+				console.log("questo è il voto " + data.results[i].vote_count);
 				var voto = data.results[i].vote_count;
+
+				$(".info-film").append("<li>" + titoloFilm + " " + titoloOriginale + " " + lingua + " " + voto + " " + "</li>");
 			}
 
 		},
