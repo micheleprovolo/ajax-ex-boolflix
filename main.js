@@ -3,20 +3,36 @@
 
 $(document).ready(function () {
 
+	//al click sulla barra di ricerca viene cancellato ciò che era stato scritto in precedenza
+	$("input:text").click(function(){
+
+			$(this).val("");
+
+			$(".info-film").empty();
+		});
+
+	// $(".casella").click(function () {
+	// $(".info-film").remove();
+	// });
+
 	//al click sul bottone di ricerca...
-	$(".btn").click(function() {
+	$(".btn").click(function () {
 		
 		//.val() mi restituisce ciò che è stato scritto nell'input
 		var value = $(".casella").val();
 
 		//invoco la funzione recall (che fa la chiamata ajax) e gli passo la var value che contiene l'input
 		recall(value);
-	})
+
+	});
+	
 
 });
 
+
+
 function recall(searchQuery) {
-	
+
 	$.ajax({
 		url: "https://api.themoviedb.org/3/search/movie?api_key=d74de08606fa199c2ea341c8be9368d2&query=" + searchQuery,
 		method: "GET",
