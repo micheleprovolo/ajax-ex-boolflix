@@ -9,7 +9,7 @@ $(document).ready(function () {
 		callAjaxFilm();
 
 		//chiamata dell'API delle serie TV
-		// callAjaxSerie();
+		callAjaxSerie();
 
 		//pulizia casella di ricerca
 		resetCasella();
@@ -50,29 +50,31 @@ function callAjaxFilm() {
 			//ciclo sull'array di oggetti (results) che mi fornisce l'API per ottenere i singoli oggetti
 			for (var i = 0; i < data.results.length; i++) {
 
-			//salvo per comodità in movie gli oggetti dell'array results (che sono i film)
-			var movie = data.results[i];
-			
-			//la media voti viene portata a numero intero e da base 10 a base 5
-			movie.vote_average = Math.floor(movie.vote_average/2)
+				//salvo per comodità in element gli oggetti dell'array results (che sono i film)
+				var element = data.results[i];
 
-			var source = $(".movie-tmpl").html();
+				//la media voti viene portata a numero intero e da base 10 a base 5
+				element.vote_average = Math.ceil(element.vote_average / 2);
 
-			var template = Handlebars.compile(source);
+				var source = $(".movie-tmpl").html();
 
-			var context = {
+				var template = Handlebars.compile(source);
 
-				title: movie.title,
-				original_title: movie.original_title,
-				lang: movie.original_language,
-				flag: getFlag(movie.original_language),
-				// stars: getStars(movie.vote_average)
-			};
+				var context = {
 
-			var html = template(context);
+					movieTitle: element.title,
+					original_title: element.original_title,
+					// lang: element.original_language,
+					flag: getFlag(element.original_language),
+					stelle: getStars(element.vote_average - 1),
+					rate: element.vote_average,
+					locandina: "https://image.tmdb.org/t/p/w185/" + element.poster_path
+				};
 
-			//stampo in pagina tramite HB
-			$("#hb-container").append(html);
+				var html = template(context);
+
+				//stampo in pagina tramite HB
+				$("#hb-container").append(html);
 
 			}
 
@@ -83,45 +85,138 @@ function callAjaxFilm() {
 	});
 };
 
+//funzione per chiamata dell'API delle serie TV
+function callAjaxSerie() {
+
+	//salvo nella variabile q il valore inserito nella casella di ricerca da parte dell'utente
+	var q = $(".casella").val();
+
+	//chiamata
+	$.ajax({
+
+		url: "https://api.themoviedb.org/3/search/tv",
+		method: "GET",
+		data: {
+			api_key: "d74de08606fa199c2ea341c8be9368d2",
+			query: q,
+			language: "it-IT"
+		},
+
+		//in caso di successo della chiamata
+		success: function (data) {
+			//console.log("success", data);
+
+
+			//ciclo sull'array di oggetti (results) che mi fornisce l'API per ottenere i singoli oggetti
+			for (var i = 0; i < data.results.length; i++) {
+
+				//salvo per comodità in element gli oggetti dell'array results (che sono i film)
+				var element = data.results[i];
+
+				//la media voti viene portata da decimale a numero intero e da base 10 a base 5
+				element.vote_average = Math.ceil(element.vote_average / 2);
+
+				var source = $(".series-tmpl").html();
+
+				var template = Handlebars.compile(source);
+
+				var context = {
+
+					seriesTitle: element.name,
+					original_title: element.original_name,
+					// lang: element.original_language,
+					flag: getFlag(element.original_language),
+					stelle: getStars(element.vote_average - 1),
+					rate: element.vote_average,
+					locandina: "https://image.tmdb.org/t/p/w185/" + element.poster_path
+				};
+
+				var html = template(context);
+
+				//stampo in pagina tramite HB
+				$("#hb-container").append(html);
+
+			}
+
+		},
+		error: function (stato) {
+			console.log("c'è stato un errore: " + stato);
+		}
+	});
+};
 
 //funzione per creazione bandiere al posto della lingua
 function getFlag(lang) {
+
+//METODO CON ARRAY
+//creo array con le lingue che mi interessano
 	var bandiera = [
 		'it',
 		'en',
 		'us'
 	];
 
+	//se una delle lingue contenute nell'array corrisponde a quelle dell'API...
 	if (bandiera.includes(lang)) {
+
+		//viene stampata l'immagine corrispondente (nome del file img deve essere uguale alla denominazione dell'API)
 		return "<img src='img/" + lang + ".png'>";
-	}
+	} 
+	//altrimenti non si stampa nulla
 	return "";
+
+
+	// //METODO CON SWITCH
+	// var bandiera = "";
+
+	// switch (lang) {
+
+	// 	case "it":
+	// 		bandiera = "<img src= 'img/it.png'>"
+	// 		break;
+
+	// 	case "en":
+	// 		bandiera = "<img src= 'img/en.png'>"
+	// 		break;
+
+	// 	case "us":
+	// 		bandiera = "<img src= 'img/us.png'>"
+	// 		break;	
+	// }
+	// return bandiera;
+
+
+	// //METODO CON IF...ELSE
+	// if(lang === "it") {
+	// 	bandiera = "<img src= 'img/it.png'>"
+
+	// } else if (lang === "en") {
+	// 	bandiera = "<img src= 'img/en.png'>"
+
+	// } else if ( lang === "us") {
+	// 	bandiera = "<img src= 'img/us.png'>"
+	// }
+	// return bandiera;
+
 };
 
+//funzione per sostituire voto numerico con stelle (da 1 a 5)
+function getStars(rating) {
+
+	var stelle = "";
+
+	for (var i = 0; i < 5; i++) {
+
+		if (i <= rating) {
+			stelle += "<i class='fas fa-star'></i>";
+		} else {
+			stelle += "<i class='far fa-star'></i>";
+		}
+	}
+	return stelle
+};
+
+//funzione per pulizia casella di ricerca
 function resetCasella() {
 	$("input:text").val("");
-}
-
-
-
-
-
-// 	//salvo il valore della proprietà title
-// 	console.log("questo è il titolo " + data.results[i].title);
-// 	var titoloFilm = data.results[i].title;
-
-// 	//salvo il valore della proprietà original_title
-// 	console.log("questo è il titolo originale " + data.results[i].original_title);
-// 	var titoloOriginale = data.results[i].original_title;
-
-// 	//salvo il valore della proprietà lingua
-// 	console.log("questa è la lingua " + data.results[i].original_language);
-// 	var lingua = data.results[i].original_language;
-
-// 	//salvo il valore della proprietà voto
-// 	console.log("questo è il voto " + data.results[i].vote_count);
-// 	var voto = data.results[i].vote_count;
-
-// 	// $(".info-film").append("<li>" + titoloFilm + " " + titoloOriginale + " " + lingua + " " + voto + " " + "</li>");
-// 	$(".info-film").append("<li>" + titoloFilm + "</li>" + " " + "<li>" + titoloOriginale + "</li>" + " " + "<li>" + lingua + "</li>" + " " + "<li>" + voto + "</li>");
-// }
+};

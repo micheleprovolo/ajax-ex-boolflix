@@ -28,17 +28,34 @@
         </div>
     </header>
 
-
+    <!-- template HB per i film -->
     <script class="movie-tmpl" type="text/x-handlebars-template">
 
         <div class="film">
 
             <ul>
-                <li> <span>Tipo</span> <span>{{ type }}</span> </li>
-                <li> <span>Titolo</span> <span>{{ title }}</span> </li>
-                <li> <span>Titolo originale</span> <span>{{ original_title }}</span> </li>
-                <li> <span>Lingua</span> <span>{{{ flag }}}</span></li>
-                <li> <span>Voto</span> <span>{{ rate }} - {{{ stars }}}</span> </li>
+                <li> <img src="{{ locandina }}" alt=""> </li>
+                <li> <span>Titolo:</span> <span>{{ movieTitle }}</span> </li>
+                <li> <span>Titolo originale:</span> <span>{{ original_title }}</span> </li>
+                <li> <span>Lingua:</span> <span>{{{ flag }}}</span></li>
+                <li> <span>Voto:</span> <span>{{ rate }} - {{{ stelle }}}</span> </li>
+            </ul>
+
+        </div>
+
+    </script>
+
+    <!-- template HB per le serie TV -->
+    <script class="series-tmpl" type="text/x-handlebars-template">
+
+        <div class="serie">
+
+            <ul>
+                <li> <img src="{{ locandina }}" alt=""> </li>
+                <li> <span>Titolo:</span> <span>{{ seriesTitle }}</span> </li>
+                <li> <span>Titolo originale:</span> <span>{{ original_title }}</span> </li>
+                <li> <span>Lingua:</span> <span>{{{ flag }}}</span></li>
+                <li> <span>Voto:</span> <span>{{ rate }} - {{{ stelle }}}</span> </li>
             </ul>
 
         </div>
