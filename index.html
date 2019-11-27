@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/fdcc74e310.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <title>Boolflix</title>
 </head>
@@ -18,15 +21,32 @@
         <h2 class="logo">
             BOOLFLIX
         </h2>
+
         <div class="search">
-            <input class="casella" type="text">
+            <input class="casella" type="text" placeholder="scrivi qui...">
             <button class="btn">cerca</button>
         </div>
     </header>
 
-    <ul class="info-film">
 
-    </ul>
+    <script class="movie-tmpl" type="text/x-handlebars-template">
+
+        <div class="film">
+
+            <ul>
+                <li> <span>Titolo</span> <span>{{ title }}</span> </li>
+                <li> <span>Titolo originale</span> <span>{{ original_title }}</span> </li>
+                <li> <span>Lingua</span> <span>{{ language }}</span> {{ flag }}<span></span> </li>
+                <li> <span>Voto</span> <span>{{ rate }}</span> </li>
+            </ul>
+
+        </div>
+
+    </script>
+
+    <div id="hb-container">
+
+    </div>
 
 </main>
 
