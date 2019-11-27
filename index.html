@@ -34,10 +34,11 @@
         <div class="film">
 
             <ul>
+                <li> <span>Tipo</span> <span>{{ type }}</span> </li>
                 <li> <span>Titolo</span> <span>{{ title }}</span> </li>
                 <li> <span>Titolo originale</span> <span>{{ original_title }}</span> </li>
-                <li> <span>Lingua</span> <span>{{ language }}</span> {{ flag }}<span></span> </li>
-                <li> <span>Voto</span> <span>{{ rate }}</span> </li>
+                <li> <span>Lingua</span> <span>{{{ flag }}}</span></li>
+                <li> <span>Voto</span> <span>{{ rate }} - {{{ stars }}}</span> </li>
             </ul>
 
         </div>

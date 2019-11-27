@@ -4,28 +4,36 @@ $(document).ready(function () {
 	$(".btn").click(function () {
 
 		//la barra di ricerca torna vuota
-		
 
+		//chiamata dell'API dei film
 		callAjaxFilm();
 
+		//chiamata dell'API delle serie TV
+		// callAjaxSerie();
+
+		//pulizia casella di ricerca
 		resetCasella();
-	
+
+		//cancella risultati in pagina della precedente ricerca
+		$("#hb-container").html("");
 
 	});
 
-	
 
 });
 
-function resetCasella() {
-	$("input:text").val("")
-}
 
+//FUNZIONI
+
+// funzione per chiamata dell'API dei film
 function callAjaxFilm() {
-	
+
+	//salvo nella variabile q il valore inserito nella casella di ricerca da parte dell'utente
 	var q = $(".casella").val();
 
+	//chiamata
 	$.ajax({
+
 		url: "https://api.themoviedb.org/3/search/movie",
 		method: "GET",
 		data: {
@@ -34,92 +42,69 @@ function callAjaxFilm() {
 			language: "it-IT"
 		},
 
-		//in caso di successo
+		//in caso di successo della chiamata
 		success: function (data) {
-			console.log("success", data);
+			//console.log("success", data);
 
-			//salvo per comodità in movies gli oggetti dell'array results
-			var movies = data.results;
 
-			//eseguo la funzione che stampa i film
-			stampa(movies);
+			//ciclo sull'array di oggetti (results) che mi fornisce l'API per ottenere i singoli oggetti
+			for (var i = 0; i < data.results.length; i++) {
 
-			//se ci sono i risultati della ricerca film in pagina, si 
-			if (movies.length > 0) {
-				resetCasella();
+			//salvo per comodità in movie gli oggetti dell'array results (che sono i film)
+			var movie = data.results[i];
+			
+			//la media voti viene portata a numero intero e da base 10 a base 5
+			movie.vote_average = Math.floor(movie.vote_average/2)
+
+			var source = $(".movie-tmpl").html();
+
+			var template = Handlebars.compile(source);
+
+			var context = {
+
+				title: movie.title,
+				original_title: movie.original_title,
+				lang: movie.original_language,
+				flag: getFlag(movie.original_language),
+				// stars: getStars(movie.vote_average)
+			};
+
+			var html = template(context);
+
+			//stampo in pagina tramite HB
+			$("#hb-container").append(html);
+
 			}
 
 		},
 		error: function (stato) {
 			console.log("c'è stato un errore: " + stato);
 		}
-	})
-}
-
-function stampa(movies) {
-
-	//cancella risultati in pagina della precedente ricerca
-	$("#hb-container").html("");
-
-	
-	
-
-	for (var i = 0; i < movies.length; i++) {
-
-		var elemento = movies[i];
-		var source = $(".movie-tmpl").html();
-		var template = Handlebars.compile(source);
-
-		var context = {
-
-			title: elemento.title,
-			original_title: elemento.original_title,
-			lingua: elemento.original_language,
-			flag: getFlag(elemento.original_language),
-			rate: Math.ceil(elemento.vote_average)
-		};
-
-		var html = template(context);
-		$("#hb-container").append(html);
-
-	}
-}
-
-//funzione per creazione bandiere
-function getFlag(flag) {
-	var bandiera;
-
-	switch (flag) {
-		case "en":
-				bandiera = "<img src='img/bandiera-inglese.jpg'>";
-			break;
-
-		case "it":
-			bandiera = "<img src='img/bandiera-italia.jpg'>";
-		break;
-	}
-	return flag;
+	});
 };
 
 
-// //al click sul bottone di ricerca...
-// $(".btn").click(function () {
+//funzione per creazione bandiere al posto della lingua
+function getFlag(lang) {
+	var bandiera = [
+		'it',
+		'en',
+		'us'
+	];
 
-// 	//.val() mi restituisce ciò che è stato scritto nell'input
-// 	var value = $(".casella").val();
+	if (bandiera.includes(lang)) {
+		return "<img src='img/" + lang + ".png'>";
+	}
+	return "";
+};
 
-// 	//invoco la funzione recall (che fa la chiamata ajax) e gli passo la var value che contiene l'input
-// 	recall(value);
-
-// });
-
-// function recall(searchQuery) {
+function resetCasella() {
+	$("input:text").val("");
+}
 
 
-// }
 
-// //ciclo sull'array di oggetti (reults) che mi fornisce l'API per ottenere i singoli oggetti
-// for (var i = 0; i < data.results.length; i++) {
+
 
 // 	//salvo il valore della proprietà title
 // 	console.log("questo è il titolo " + data.results[i].title);
