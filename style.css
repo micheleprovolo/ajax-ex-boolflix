@@ -79,6 +79,8 @@ header {
     transform: translate(-50%, -50%);
 }
 
-h2, h4, h5 {
+h2,
+h4,
+h5 {
     margin-bottom: 15px;
 }

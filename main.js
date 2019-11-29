@@ -1,5 +1,11 @@
-
 $(document).ready(function () {
+	//premendo invio dopo aver scritto nella casella di ricerca vine lanciata la funzione triggerata dal click
+	$(".casella").keypress(function (event) {
+		var key = event.which; //event.which ritorna quale pulsante è stato premuto
+		if (key == 13) {
+			$(".btn").click();
+		}
+	});
 
 	//al click sul pulsante di ricerca
 	$(".btn").click(function () {
@@ -63,7 +69,6 @@ function callAjaxFilm() {
 
 					movieTitle: element.title,
 					original_title: element.original_title,
-					// lang: element.original_language,
 					flag: getFlag(element.original_language),
 					stelle: getStars(element.vote_average - 1),
 					rate: element.vote_average,
@@ -123,7 +128,6 @@ function callAjaxSerie() {
 
 					seriesTitle: element.name,
 					original_title: element.original_name,
-					// lang: element.original_language,
 					flag: getFlag(element.original_language),
 					stelle: getStars(element.vote_average - 1),
 					rate: element.vote_average,
