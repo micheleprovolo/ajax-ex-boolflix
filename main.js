@@ -1,12 +1,13 @@
+
 $(document).ready(function () {
 
 	//al click sul pulsante di ricerca
 	$(".btn").click(function () {
 
-		//la barra di ricerca torna vuota
-
 		//chiamata dell'API dei film
 		callAjaxFilm();
+		
+		// showInfoOnHover();
 
 		//chiamata dell'API delle serie TV
 		callAjaxSerie();
@@ -68,13 +69,13 @@ function callAjaxFilm() {
 					flag: getFlag(element.original_language),
 					stelle: getStars(element.vote_average - 1),
 					rate: element.vote_average,
-					locandina: "https://image.tmdb.org/t/p/w185/" + element.poster_path
+					locandina: "https://image.tmdb.org/t/p/w342/" + element.poster_path
 				};
 
 				var html = template(context);
 
 				//stampo in pagina tramite HB
-				$("#hb-container").append(html);
+				$("#hb-container").append(html).addClass("flex");
 
 			}
 
@@ -128,13 +129,13 @@ function callAjaxSerie() {
 					flag: getFlag(element.original_language),
 					stelle: getStars(element.vote_average - 1),
 					rate: element.vote_average,
-					locandina: "https://image.tmdb.org/t/p/w185/" + element.poster_path
+					locandina: "https://image.tmdb.org/t/p/w342/" + element.poster_path
 				};
 
 				var html = template(context);
 
 				//stampo in pagina tramite HB
-				$("#hb-container").append(html);
+				$("#hb-container").append(html).addClass("flex");
 
 			}
 
@@ -148,8 +149,8 @@ function callAjaxSerie() {
 //funzione per creazione bandiere al posto della lingua
 function getFlag(lang) {
 
-//METODO CON ARRAY
-//creo array con le lingue che mi interessano
+	//METODO CON ARRAY
+	//creo array con le lingue che mi interessano
 	var bandiera = [
 		'it',
 		'en',
@@ -161,7 +162,7 @@ function getFlag(lang) {
 
 		//viene stampata l'immagine corrispondente (nome del file img deve essere uguale alla denominazione dell'API)
 		return "<img src='img/" + lang + ".png'>";
-	} 
+	}
 	//altrimenti non si stampa nulla
 	return "";
 

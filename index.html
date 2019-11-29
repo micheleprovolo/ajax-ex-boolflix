@@ -9,68 +9,72 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
+
     <title>Boolflix</title>
 </head>
 
 <body>
 
-<main>
-    <header>
-        <h2 class="logo">
-            BOOLFLIX
-        </h2>
+    <main>
+        <header>
+            <h2 class="logo">
+                BOOLFLIX
+            </h2>
 
-        <div class="search">
-            <input class="casella" type="text" placeholder="scrivi qui...">
-            <button class="btn">cerca</button>
-        </div>
-    </header>
+            <div class="search">
+                <input class="casella" type="text" placeholder="scrivi qui...">
+                <button class="btn">cerca</button>
+            </div>
+        </header>
 
-    <!-- template HB per i film -->
-    <script class="movie-tmpl" type="text/x-handlebars-template">
+        <!-- template HB per i film -->
+        <script class="movie-tmpl" type="text/x-handlebars-template">
 
-        <div class="film">
+            <div class="container">
 
-            <ul>
-                <li> <img src="{{ locandina }}" alt=""> </li>
-                <li> <span>Titolo:</span> <span>{{ movieTitle }}</span> </li>
-                <li> <span>Titolo originale:</span> <span>{{ original_title }}</span> </li>
-                <li> <span>Lingua:</span> <span>{{{ flag }}}</span></li>
-                <li> <span>Voto:</span> <span>{{ rate }} - {{{ stelle }}}</span> </li>
-            </ul>
+                <img class="image" src="{{ locandina }}" alt="">
 
-        </div>
+                <div class="info">
+                    <h2>{{ movieTitle }}</h2>
+                    <h4>Titolo originale:</h4> <h4>{{ original_title }}</h4>
+                    <h5>Lingua:</h5> <span>{{{ flag }}}</span>
+                    <h5>Voto:</h5> <span>{{{ stelle }}}</span>
+                </div>
 
-    </script>
 
-    <!-- template HB per le serie TV -->
-    <script class="series-tmpl" type="text/x-handlebars-template">
-
-        <div class="serie">
-
-            <ul>
-                <li> <img src="{{ locandina }}" alt=""> </li>
-                <li> <span>Titolo:</span> <span>{{ seriesTitle }}</span> </li>
-                <li> <span>Titolo originale:</span> <span>{{ original_title }}</span> </li>
-                <li> <span>Lingua:</span> <span>{{{ flag }}}</span></li>
-                <li> <span>Voto:</span> <span>{{ rate }} - {{{ stelle }}}</span> </li>
-            </ul>
-
-        </div>
+            </div>
 
     </script>
 
-    <div id="hb-container">
+        <!-- template HB per le serie TV -->
+        <script class="series-tmpl" type="text/x-handlebars-template">
 
-    </div>
+            <div class="container">
 
-</main>
+                <img src="{{ locandina }}" alt=""> 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <div class="info">
+                    
+                    <span>Titolo:</span> <span>{{ seriesTitle }}
+                    <span>Titolo originale:</span> <span>{{ original_title }}</span>
+                    <span>Lingua:</span> <span>{{{ flag }}}</span>
+                    <span>Voto:</span> <span>{{ rate }} - {{{ stelle }}}</span>        
+                </div>
+                
+            </div>
 
-<script src="main.js" charset="utf-8"></script>
+    </script>
+
+        <div id="hb-container">
+
+        </div>
+
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="main.js" charset="utf-8"></script>
 
 </body>
 
