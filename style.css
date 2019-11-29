@@ -35,7 +35,9 @@ header {
 
 .container {
     position: relative;
-
+    margin-right: 40px;
+    margin-bottom: 30px;
+    border: gray 0.5px solid;
 }
 
 .container:hover .info {
