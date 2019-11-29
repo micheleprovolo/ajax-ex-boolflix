@@ -6,8 +6,6 @@ $(document).ready(function () {
 
 		//chiamata dell'API dei film
 		callAjaxFilm();
-		
-		// showInfoOnHover();
 
 		//chiamata dell'API delle serie TV
 		callAjaxSerie();

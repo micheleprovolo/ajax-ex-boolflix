@@ -17,22 +17,23 @@
 <body>
 
     <main>
-        <header>
-            <h2 class="logo">
-                BOOLFLIX
-            </h2>
+        <div class="space">
+            <header>
+                <h2 class="logo">
+                    BOOLFLIX
+                </h2>
 
-            <div class="search">
-                <input class="casella" type="text" placeholder="scrivi qui...">
-                <button class="btn">cerca</button>
-            </div>
-        </header>
+                <div class="search">
+                    <input class="casella" type="text" placeholder="scrivi qui...">
+                    <button class="btn">cerca</button>
+                </div>
+            </header>
 
-        <!-- template HB per i film -->
-        <script class="movie-tmpl" type="text/x-handlebars-template">
+            <!-- template HB per i film -->
+            <script class="movie-tmpl" type="text/x-handlebars-template">
 
-            <div class="container">
-
+                <div class="container">
+                    
                 <img class="image" src="{{ locandina }}" alt="">
 
                 <div class="info">
@@ -47,29 +48,30 @@
 
     </script>
 
-        <!-- template HB per le serie TV -->
-        <script class="series-tmpl" type="text/x-handlebars-template">
+            <!-- template HB per le serie TV -->
+            <script class="series-tmpl" type="text/x-handlebars-template">
 
-            <div class="container">
+                <div class="container">
 
-                <img src="{{ locandina }}" alt=""> 
+                <img class="image" src="{{ locandina }}" alt=""> 
 
                 <div class="info">
                     
-                    <span>Titolo:</span> <span>{{ seriesTitle }}
-                    <span>Titolo originale:</span> <span>{{ original_title }}</span>
-                    <span>Lingua:</span> <span>{{{ flag }}}</span>
-                    <span>Voto:</span> <span>{{ rate }} - {{{ stelle }}}</span>        
+                    <h2>{{ seriesTitle }}</h2>
+                    <h4>Titolo originale:</h4> <h4>{{ original_title }}</h4>
+                    <h5>Lingua:</h5> <h5>{{{ flag }}}</h5>
+                    <h5>Voto:</h5> <span>{{{ stelle }}}</span>        
                 </div>
                 
             </div>
 
     </script>
 
-        <div id="hb-container">
+            <div id="hb-container">
+
+            </div>
 
         </div>
-
     </main>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
